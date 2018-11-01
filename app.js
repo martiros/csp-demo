@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var demoRouter = require('./routes/demo');
 
 var app = express();
 
@@ -19,8 +19,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Notes: Disabling default browser XSS protection so we can demo by changing
+// GET parameters, instead of creating POST requests or stored XSS demo.
+app.use(function(req, res, next) {
+  res.set('X-XSS-Protection', '0');
+  next();
+});
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/demos', demoRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

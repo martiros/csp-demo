@@ -5,7 +5,20 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>CSP Demos</h1>
+    <ul>
+      <li>
+        <a href="<%=`/demos/page-with-xss?name=John\%20Doe\%3Cscript\%3Ealert(\%27Hacked\%27);\%3C/script\%3E`%>" >Page with XSS</a>
+      </li>
+
+      <li>
+        <a href="<%=`/demos/csp-protection-for-basic-page?name=John\%20Doe<script>alert(\%27Hacked\%27);</script>`%>" >Basic CSP protection</a>
+      </li>
+
+      <li>
+        <a href="<%= `/demos/insufficient-csp-protection?name=<script%20src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.3/angular.min.js"></script>%0A%0A<div%20ng-app%20ng-csp%20id=p%20ng-click=$event.view.alert(%27Hacked!%27)>%0A%0A<script%20async%20src=https://ajax.googleapis.com/jsapi?callback=p.click></script></div>`%>">CSP Bypass</a>
+      </li>
+
+    </ul>
   </body>
 </html>
